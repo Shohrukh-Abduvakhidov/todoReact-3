@@ -104,7 +104,7 @@ function App() {
           display: "flex",
           alignItems: "center",
           margin : "auto",
-          width : "700px",
+          width : {xs : "100%" , md : "700px"},
           paddingBottom : "10px",
         }}
       >
