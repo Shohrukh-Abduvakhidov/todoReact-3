@@ -22,7 +22,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Margin } from "@mui/icons-material";
 
-const App = () => {
+function App() {
   const [users, setUsers] = useState([
     { id: 1, name: "John Doe", email: "john@example.com", status: true },
     { id: 2, name: "Jane Smith", email: "jane@example.com", status: false },
@@ -33,7 +33,6 @@ const App = () => {
   const [newUser, setNewUser] = useState({ name: "", email: "" });
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
-  const [sortAsc, setSortAsc] = useState(true);
 
   const handleOpen = (user = null) => {
     setEditMode(!!user);
@@ -87,10 +86,8 @@ const App = () => {
   };
 
   const filteredUsers = users
-    .filter(
-      (user) =>
-        user.name.toLowerCase().includes(search.toLowerCase()) ||
-        user.email.toLowerCase().includes(search.toLowerCase())
+    .filter((user) =>
+      JSON.stringify(user).toLowerCase().includes(search.toLowerCase())
     )
     .filter((user) =>
       statusFilter === "all"
@@ -111,6 +108,10 @@ const App = () => {
         <Button
           variant="contained"
           style={{ margin: "20px" }}
+          sx={{
+            width : {xs : "100px" ,md : "150px"},
+            mr : {xs : "100px" , md : "0px"}
+          }}
           color="primary"
           onClick={() => handleOpen()}
         >
@@ -126,15 +127,16 @@ const App = () => {
         <Select
           value={statusFilter}
           onChange={handleStatusFilterChange}
-          style={{ marginTop: 10, width: 300 }}
+          sx={{width : 100}}
+          style={{ marginTop: 10}}
         >
           <MenuItem value="all">All</MenuItem>
           <MenuItem value="active">Active</MenuItem>
           <MenuItem value="inactive">Inactive</MenuItem>
         </Select>
       </Container>
-      <TableContainer component={Paper} style={{ marginTop: 20 }}>
-        <Table>
+      <TableContainer sx={{width : {xs : "100%" , md: "100%"}}} component={Paper} style={{ marginTop: 20 }}>
+        <Table sx={{width : {xs : "100%"}}}>
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>
@@ -162,8 +164,22 @@ const App = () => {
                 <TableRow key={user.id}>
                   <TableCell>{user.name}</TableCell>
                   <TableCell>{user.email}</TableCell>
-                  <TableCell>{user.status ? "Active" : "Inactive"}</TableCell>
-                  <TableCell>
+                  <TableCell> 
+            <Button 
+              sx={{ 
+                p: "5px", 
+                width: "70px", 
+                height: "30px", 
+                bgcolor: user?.status ? "green" : "red", 
+                color : "#fff"
+              }}>
+            {user.status ? "Active" : "Inactive"}
+          </Button>
+        </TableCell>
+
+                  <TableCell sx={{
+                    display : "flex",
+                  }}>
                     <IconButton
                       color="primary"
                       onClick={() => handleOpen(user)}
@@ -175,9 +191,10 @@ const App = () => {
                       onClick={() => handleDelete(user.id)}
                     >
                       <DeleteIcon />
-                      <Checkbox
+                    </IconButton>
+                    <IconButton>
+                    <Checkbox
                         checked={user.status}
-                        style={{ margin: 20 }}
                         onChange={() => handleStatusChange(user.id)}
                       />
                     </IconButton>
@@ -233,6 +250,6 @@ const App = () => {
       </Modal>
     </Container>
   );
-};
+}
 
 export default App;
