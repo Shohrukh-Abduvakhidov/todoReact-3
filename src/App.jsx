@@ -103,14 +103,17 @@ function App() {
         sx={{
           display: "flex",
           alignItems: "center",
+          margin : "auto",
+          width : "700px",
+          paddingBottom : "10px",
         }}
       >
         <Button
           variant="contained"
-          style={{ margin: "20px" }}
+          style={{ marginRight: "20px", marginTop : "10px" , height : "50px" }}
           sx={{
             width : {xs : "100px" ,md : "150px"},
-            mr : {xs : "100px" , md : "0px"}
+            mr : {xs : "100px" , md : "0px"},
           }}
           color="primary"
           onClick={() => handleOpen()}
@@ -135,10 +138,10 @@ function App() {
           <MenuItem value="inactive">Inactive</MenuItem>
         </Select>
       </Container>
-      <TableContainer sx={{width : {xs : "100%" , md: "100%"}}} component={Paper} style={{ marginTop: 20 }}>
+      <TableContainer className="border-1 border-gray-500" sx={{width : {xs : "100%" , md: "100%"}}} component={Paper} style={{ marginTop: 20 }}>
         <Table sx={{width : {xs : "100%"}}}>
           <TableHead>
-            <TableRow>
+            <TableRow className="border-b-2 border-gray-500">
               <TableCell>Name</TableCell>
               <TableCell>Email</TableCell>
               <TableCell>Status</TableCell>
@@ -161,7 +164,7 @@ function App() {
               </Typography>
             ) : (
               filteredUsers.map((user) => (
-                <TableRow key={user.id}>
+                <TableRow className="border-b-2 border-gray-500" key={user.id}>
                   <TableCell>{user.name}</TableCell>
                   <TableCell>{user.email}</TableCell>
                   <TableCell> 
