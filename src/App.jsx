@@ -148,12 +148,12 @@ function App() {
           <TableBody>
             {filteredUsers.length === 0 ? (
               <Typography
-                style={{
+                sx={{
                   color: "red",
                   textAlign: "center",
                   margin: "0px 20px",
                   position: "absolute",
-                  left: "28%",
+                  left: {xs : "1%" , md : "28%"},
                 }}
                 variant="h1"
               >
